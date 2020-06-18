@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class PlanetsCollectionViewController: UICollectionViewController {
     
     // MARK: - Properties
@@ -25,8 +23,18 @@ class PlanetsCollectionViewController: UICollectionViewController {
 		super.viewDidLoad()
 		
 		updateViews()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshViews(_:)), name: .shouldShowPlutoChanged, object: nil)
 	}
-	
+	// if you use the notification being passed in the selctor needs to have (_:) in it ^
+    @objc func refreshViews(_ notification: Notification) {
+        print("notification: \(notification)")
+//        if let userInfo = notification.userInfo {
+//
+//        }
+        updateViews()
+    }
+    
 	func updateViews() {
         collectionView?.reloadData()
 	}
